@@ -1,10 +1,8 @@
 all: 
 	gcc -o add add.c
 
-run: all
-	./add 1 2
-	./add 1 
-	./add one 2
+run: all # Run the program with two example numbers NUM1 = ? and NUM2 = ?
+	./add $(NUM1) $(NUM2)
 
 clean: 
 	rm -f add
