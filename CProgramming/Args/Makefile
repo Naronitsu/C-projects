@@ -1,8 +1,9 @@
+
 all: 
 	gcc -o args args.c
 
 run: all
-	./args first second third
+	./args $(FIRST) $(SECOND) $(THIRD)
 
 clean: 
 	rm -f args
