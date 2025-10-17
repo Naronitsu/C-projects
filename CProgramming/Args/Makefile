@@ -4,5 +4,5 @@ all:
 run: all
 	./args
 
-clean:
+clean: 
 	rm -f args
