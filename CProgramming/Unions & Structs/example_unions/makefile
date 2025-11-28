@@ -13,4 +13,3 @@ rebuild: clean all
 
 clean:
 	-rm -f usingUnions usingUnions.o message.o
-

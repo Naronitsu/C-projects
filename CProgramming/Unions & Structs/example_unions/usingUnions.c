@@ -30,9 +30,10 @@ int main(void) {
     }
     case 3: {
         union MessageData buf;
+        char fmt[16];
+        snprintf(fmt, sizeof fmt, " %%%zu[^\n]", sizeof buf.text - 1);
         printf("Enter the text message: ");
-        if (fgets(buf.text, sizeof buf.text, stdin) == NULL) return 1;
-        buf.text[strcspn(buf.text, "\n")] = '\0';
+        if (scanf(fmt, buf.text) != 1) return 1;
         oneMessage = make_message(TEXT, &buf);
         break;
     }
