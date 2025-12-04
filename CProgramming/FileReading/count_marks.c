@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
     fclose(fp);
 
     if (total == 0) {
-        // Avoid divide-by-zero; define as 0%
         printf("Pass rate is 0 of 0 (0.00%%)\n");
         return 0;
     }
