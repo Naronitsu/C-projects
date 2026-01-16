@@ -88,13 +88,18 @@ int main(int argc, char *argv[]) {
 				}
 				first_read = 0;
 			}
+		} else if (num_bytes < 0) {
+			/* Check if it's a timeout or would block (not a real error) */
+			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+				/* Timeout - no more data, this is normal */
+				break;
+			}
+			/* Real error */
+			fprintf(stderr, "ERROR: Failed reading from socket\n");
+			close(sockfd);
+			return 5;
 		}
 	} while (num_bytes > 0);
-
-	if (num_bytes < 0) {
-		fprintf(stderr, "ERROR: Failed reading from socket\n");
-		return 5;
-	}
 	
 	/* Print HTTP status and response size */
 	printf("HTTP Status: %d\n", http_status);
