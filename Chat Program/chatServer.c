@@ -15,12 +15,13 @@ int main() {
 
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
 
+    memset(&srv_addr, 0, sizeof(srv_addr));
     srv_addr.sin_family = AF_INET;
     srv_addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
     srv_addr.sin_port = htons(PORT);
 
-    bind(listenfd, (struct sockaddr *)&srv_addr, sizeof(srv_addr));
-    listen(listenfd, 5);
+    int p = bind(listenfd, (struct sockaddr *)&srv_addr, sizeof(srv_addr));
+    int l = listen(listenfd, 5);
 
     printf("Server listening on port %d...\n", PORT);
 
