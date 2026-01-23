@@ -16,6 +16,9 @@ typedef struct
     int ok;
 } ThreadResult;
 
+static long global_total;
+static pthread_mutex_t total_mutex = PTHREAD_MUTEX_INITIALIZER;
+
 //Thread code
 static void *count_lines_thread(void *arg)
 {
@@ -54,6 +57,10 @@ static void *count_lines_thread(void *arg)
     fclose(fp);
 
     printf("%s: %ld\n", res->filename, res->line_count);
+
+    pthread_mutex_lock(&total_mutex);
+    global_total += res->line_count;
+    pthread_mutex_unlock(&total_mutex);
 
     free(threadArg);
     return res;
@@ -136,6 +143,8 @@ int main(int argc, char *argv[])
             free(res);
         }
     }
+
+    printf("Total lines: %ld\n", global_total);
 
     free(threads);
     return 0;
